@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>View Pets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Pet List</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.name.label }}<br>
+            {{ form.name() }}<br>
+            {{ form.age.label }}<br>
+            {{ form.age() }}<br>
+            {{ form.type.label }}<br>
+            {{ form.type() }}<br>
+            {{ form.submit() }}
+        </div>
+    </form>
+    <h2>Existing Pets</h2>
+    <ul>
+        {% for pet in pets %}
+            <li>{{ pet.name }} - {{ pet.age }} - {{ pet.type }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
