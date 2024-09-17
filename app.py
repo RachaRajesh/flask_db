@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from models import db, Pet
 from forms import PetForm
 
@@ -19,7 +19,16 @@ def index():
     pets = Pet.query.all()
     return render_template('view_pets.html', form=form, pets=pets)
 
+@app.route('/remove_pet/<int:pet_id>', methods=['POST'])
+def remove_pet(pet_id):
+    pet = Pet.query.get(pet_id)
+    if pet:
+        db.session.delete(pet)
+        db.session.commit()
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # Create database tables
     app.run(debug=True)
+
